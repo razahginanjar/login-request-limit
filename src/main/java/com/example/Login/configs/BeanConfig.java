@@ -1,13 +1,16 @@
 package com.example.Login.configs;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
-@Component
+@Configuration
 public class BeanConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -20,4 +23,5 @@ public class BeanConfig {
     {
         return configuration.getAuthenticationManager();
     }
+
 }

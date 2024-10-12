@@ -1,5 +1,6 @@
-package com.example.Login.security;
+package com.example.Login.Security;
 
+import com.example.Login.constants.URLs;
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ public class WebSecurityConfigure {
     {
         return httpSecurity
                 .httpBasic(AbstractHttpConfigurer::disable)
-//                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                 {
                     httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
@@ -37,6 +38,7 @@ public class WebSecurityConfigure {
                             authorizationManagerRequestMatcherRegistry
                                     .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                                     .requestMatchers("/api/v1/auth/**").permitAll()
+                                    .requestMatchers("/hello").permitAll()
                                     .requestMatchers(
                                             "/v2/api-docs",
                                             "/v3/api-docs",
@@ -52,8 +54,8 @@ public class WebSecurityConfigure {
                                     .anyRequest().authenticated();
                         }
                 )
-                .addFilterBefore(filter,
-                        UsernamePasswordAuthenticationFilter.class
+                .addFilterBefore(filter, //filter kita
+                        UsernamePasswordAuthenticationFilter.class // jenis filter
                 )
                 .build();
     }

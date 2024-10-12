@@ -1,8 +1,9 @@
-package com.example.Login.security;
+package com.example.Login.Security;
 
+import com.example.Login.configs.RateLimiterConfig;
 import com.example.Login.dto.responses.JWTClaims;
 import com.example.Login.entities.Users;
-import com.example.Login.services.impl.JwtServiceImpl;
+import com.example.Login.services.JwtService;
 import com.example.Login.services.impl.UsersServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,8 +26,9 @@ import java.util.Objects;
 public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final String AUTH_HEADER = "Authorization";
-    private final JwtServiceImpl jwtService;
+    private final JwtService jwtService;
     private final UsersServiceImpl userService;
+    private final RateLimiterConfig rateLimiter;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -36,17 +38,31 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException
     {
         try{
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            String clientId = httpRequest.getRemoteAddr();
 
+            if (!rateLimiter.isAllowed(clientId)) {
+                response.setStatus(429);
+                return;
+            }
+
+            //get Token from header
             String token = request.getHeader(AUTH_HEADER);
+
             if(Objects.nonNull(token) && jwtService.verifyToken(token))
             {
+
                 JWTClaims jwtClaims = jwtService.claimToken(token);
+
                 Users userByID = userService.getById(jwtClaims.getIdUser());
+
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userByID.getUsername(),
-                        null
+                        null,
+                        userByID.getAuthorities()
                 );
                 authenticationToken.setDetails(new WebAuthenticationDetails(request));
+
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
 

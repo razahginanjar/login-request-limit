@@ -28,7 +28,6 @@ public class AuthController {
     private final AuthService authService;
 
     @SecurityRequirement(name = "bearerAuth")
-    @PreAuthorize("hasRole('ADMINISTRATOR')")
     @Operation(
             description = "Register new merchant (ADMIN PRIVILEGE)",
             summary = "Register new merchant"
