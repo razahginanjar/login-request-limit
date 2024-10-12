@@ -41,6 +41,10 @@ docker compose up -d
 ```
 ### INSTRUCTIONS
 Before you run the app, you should make sure to create database with name of "login_redis" first.
+and you need to install redis and run it before run the app
+
+you can download it from here:
+https://github.com/microsoftarchive/redis/releases/tag/win-3.2.100
 
 # System Requirements
 
