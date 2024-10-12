@@ -6,6 +6,10 @@ import com.example.Login.dto.requests.UpdateVendorRequest;
 import com.example.Login.dto.responses.CommonResponse;
 import com.example.Login.dto.responses.VendorResponse;
 import com.example.Login.services.VendorsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,9 +21,15 @@ import java.util.List;
 @RestController
 @RequestMapping(path = URLs.VENDOR)
 @RequiredArgsConstructor
+@Tag(name = "Vendor Control")
+@SecurityRequirement(name = "bearerAuth")
 public class VendorController {
     private final VendorsService vendorsService;
 
+    @Operation(
+            description = "Register new Vendor",
+            summary = "Register new Vendor"
+    )
     @PostMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -36,6 +46,10 @@ public class VendorController {
         );
     }
 
+    @Operation(
+            description = "Get a Specific Vendor",
+            summary = "Get a Specific Vendor"
+    )
     @GetMapping(
             path = URLs.ID,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -52,6 +66,10 @@ public class VendorController {
         );
     }
 
+    @Operation(
+            description = "Get Vendors",
+            summary = "Get Vendors"
+    )
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -67,6 +85,10 @@ public class VendorController {
         );
     }
 
+    @Operation(
+            description = "Update Specific Vendor",
+            summary = "Update Specific Vendor"
+    )
     @PutMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -83,6 +105,10 @@ public class VendorController {
         );
     }
 
+    @Operation(
+            description = "Delete Specific Vendor",
+            summary = "Delete Specific Vendor"
+    )
     @DeleteMapping(
             path = URLs.ID,
             produces = MediaType.APPLICATION_JSON_VALUE

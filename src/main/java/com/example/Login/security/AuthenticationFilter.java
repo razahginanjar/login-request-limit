@@ -1,4 +1,4 @@
-package com.example.Login.Security;
+package com.example.Login.security;
 
 import com.example.Login.configs.RateLimiterConfig;
 import com.example.Login.dto.responses.JWTClaims;

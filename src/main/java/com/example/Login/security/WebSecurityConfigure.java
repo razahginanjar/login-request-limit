@@ -1,6 +1,5 @@
-package com.example.Login.Security;
+package com.example.Login.security;
 
-import com.example.Login.constants.URLs;
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

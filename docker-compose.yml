@@ -1,0 +1,33 @@
+services:
+  postgres:
+    container_name: postgres_login_redis
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PG_DATA: /var/lib/postgresql/data
+      POSTGRES_DB: login_redis
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-demo
+    restart: unless-stopped
+
+  iog-api:
+    container_name: login-redis-api
+    image: login-redis-api/login-redis-api:1.0.0
+    ports:
+      - "8181:8181"
+    networks:
+      - spring-demo
+    depends_on:
+      - postgres
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

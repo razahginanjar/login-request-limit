@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
-    @SecurityRequirement(name = "bearerAuth")
     @Operation(
             description = "Register new merchant (ADMIN PRIVILEGE)",
             summary = "Register new merchant"
