@@ -33,7 +33,7 @@ mvn clean install
 6. If you wanna run with docker 
 first, is:
 ```bash
-docker build -t login-redis-api/login-redis-api:1.0.0 .
+docker build -t login-redis-api/login-redis-api:0.0.1 .
 ```
 and after that :
 ```bash
