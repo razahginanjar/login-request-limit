@@ -28,8 +28,8 @@ public class AuthController {
     private final AuthService authService;
 
     @Operation(
-            description = "Register new merchant (ADMIN PRIVILEGE)",
-            summary = "Register new merchant"
+            description = "Register new user ",
+            summary = "Register new user"
     )
     @PostMapping(
             path = URLs.REGISTER,
